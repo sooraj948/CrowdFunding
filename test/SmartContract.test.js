@@ -45,23 +45,20 @@ contract ('CrowdFunding', (accounts) => {
       })
     })
 
-    describe("check sending of coins from smart contract to first account",async() =>{
-      it("should have balance of 2", async() =>{
+    describe("check sending of coins from smart contract to some account",async() =>{
+      it("should have difference in balance of 2", async() =>{
 
         const sc_address = await cf.address
-        // let acc_bal = await web3.eth.getBalance(accounts[0])
-        // cf.deposit({from:accounts[0],value:tokens("2")})//empty accounts[0]
-        // acc_bal = await web3.eth.getBalance(accounts[0])
-        // console.log(acc_bal.toString())
-        // assert.equal(acc_bal.toString(), tokens("0") );//check if empty
+        let acc_bal = await web3.eth.getBalance(accounts[2])
+        
 
-        cf.sendcoins({from:sc_address,value:tokens("2")})//send 2 eth to accounts[0]
+        cf.sendcoins(accounts[2],{value:tokens("2")})//send 2 eth to specified acc
        
         const sc_balance = await cf.contractBalance()//smart contract balance
-        const acc_bal_new = await web3.eth.getBalance(accounts[0])
+        const acc_bal_new = await web3.eth.getBalance(accounts[2])
         console.log(acc_bal_new.toString())
         
-        assert.equal(acc_bal_new.toString(), tokens("2") );
+        assert.equal((acc_bal_new-acc_bal).toString(), tokens("2") );
 
       })
     })

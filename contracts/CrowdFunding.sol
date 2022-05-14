@@ -15,7 +15,7 @@ contract CrowdFunding
     
   );
 
-    //transfers ether from sender to smart contract / liquidity pool
+    //transfers ether from samrt contract to specified account 
     function sendcoins(address payable _to) public payable 
     {
         uint EtherAmount = msg.value;
